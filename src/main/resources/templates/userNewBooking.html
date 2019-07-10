@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta name="description" content="Responsive Admin Template" />
+    <meta name="author" content="SmartUniversity" />
+    <title>酒店预定</title>
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" type="text/css" />
+    <!-- icons -->
+    <link href="assets/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <!--bootstrap -->
+    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- <link href="assets/plugins/summernote/summernote.css" rel="stylesheet">-->
+    <!-- data tables -->
+    <link href="assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css"/>
+    <!-- Material Design Lite CSS -->
+    <link rel="stylesheet" href="assets/plugins/material/material.min.css">
+    <link rel="stylesheet" href="assets/css/material_style.css">
+    <!-- animation -->
+    <link href="assets/css/pages/animate_page.css" rel="stylesheet">
+    <!-- Template Styles -->
+    <link href="assets/css/plugins.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/responsive.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/theme-color.css" rel="stylesheet" type="text/css" />
+    <!-- dropzone -->
+    <link href="assets/plugins/dropzone/dropzone.css" rel="stylesheet" media="screen">
+    <!-- Date Time item CSS -->
+    <link rel="stylesheet" href="assets/plugins/material-datetimepicker/bootstrap-material-datetimepicker.css" />
+    <!-- favicon -->
+    <link rel="shortcut icon" href="assets/img/favicon.ico" />
+
+    <script src="../lib/vue.js"></script>
+    <script src="../lib/axios.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+<!-- END HEAD -->
+<body class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md page-full-width header-white dark-sidebar-color logo-dark">
+<div id="app">
+    <div class="page-wrapper">
+        <!-- start header -->
+        <div class="page-header navbar navbar-fixed-top">
+            <div th:replace="user::headers"></div>
+            <div th:replace="user::navbar"></div>
+        </div>
+        <!-- end header -->
+        <!-- start page container -->
+        <div th:replace="user::container"></div>
+        <!-- end sidebar menu -->
+        <!-- start page content -->
+        <div class="page-content-wrapper">
+            <div class="page-content">
+                <div class="page-bar">
+                    <div class="page-title-breadcrumb">
+                        <div class=" pull-left">
+                            <div class="page-title">Add Room Booking</div>
+                        </div>
+                        <ol class="breadcrumb page-breadcrumb pull-right">
+                            <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="user.html">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
+                            </li>
+                            <li><a class="parent-item" href="">Booking</a>&nbsp;<i class="fa fa-angle-right"></i>
+                            </li>
+                            <li class="active">Add Booking</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-box">
+                            <div class="card-head">
+                                <header>Add Room Booking</header>
+                                <button id = "panel-button"
+                                        class = "mdl-button mdl-js-button mdl-button--icon pull-right"
+                                        data-upgraded = ",MaterialButton">
+                                    <i class = "material-icons">more_vert</i>
+                                </button>
+                                <ul class = "mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                                    data-mdl-for = "panel-button">
+                                    <li class = "mdl-menu__item"><i class="material-icons">assistant_photo</i>Action</li>
+                                    <li class = "mdl-menu__item"><i class="material-icons">print</i>Another action</li>
+                                    <li class = "mdl-menu__item"><i class="material-icons">favorite</i>Something else here</li>
+                                </ul>
+                            </div>
+                            <div class="card-body row">
+                                <div class="col-lg-6 p-t-20">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
+                                        <input class="mdl-textfield__input" type="text"  id="list3" value="" readonly tabIndex="-1">
+                                        <label for="list3" class="pull-right margin-0">
+                                            <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                                        </label>
+                                        <label for="list3" class="mdl-textfield__label">Room Type</label>
+                                        <ul data-mdl-for="list3" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                            <li class="mdl-menu__item" v-for="(item,index) in roomList" :key="index" @click="fun1(item.typeName)" :data-val="item.typeName">{{item.typeName}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 p-t-20">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
+                                        <input class="mdl-textfield__input" type="text" id="list2" value="" readonly tabIndex="-1">
+                                        <label for="list2" class="pull-right margin-0">
+                                            <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                                        </label>
+                                        <label for="list2" class="mdl-textfield__label">No Of Room</label>
+                                        <ul data-mdl-for="list2" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                            <li class="mdl-menu__item" v-for="item in 6" data-val="item" @click="fun2(item)">{{item}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 p-t-20">
+                                    <div class = "mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+                                       <!-- <input class = "mdl-textfield__input" type = "text" v-model="arrive" id = "date" @click.prevent="fun3">-->
+                                        <div class="block">
+                                            <span class="demonstration">Arrive</span>
+                                            <el-date-picker
+                                                    v-model="arrive"
+                                                    type="date"
+                                                    placeholder="选择日期">
+                                            </el-date-picker>
+                                        </div>
+                                       <!-- <label class = "mdl-textfield__label" >Arrive</label>-->
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 p-t-20">
+                                    <div class = "mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+                                        <!--<input class = "mdl-textfield__input" type = "text" id = "date1">
+                                        <label class = "mdl-textfield__label" >Depart</label>-->
+                                        <div class="block">
+                                            <span class="demonstration">Depart</span>
+                                            <el-date-picker
+                                                    v-model="depart"
+                                                    type="date"
+                                                    placeholder="选择日期">
+                                            </el-date-picker>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 p-t-20 text-center">
+                                    <button type="button"  @click="add" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-pink">Submit</button>
+                                    <button type="button" @click="cancel" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-default">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page content -->
+        <!-- start chat sidebar -->
+        <div th:replace="user::chatSideBar"></div>
+        <!-- end chat sidebar -->
+    </div>
+    <!-- end page container -->
+    <!-- start footer -->
+    <div th:replace="user::footer"></div>
+    <el-dialog
+            title=""
+            :visible.sync="dialogVisible"
+            width="30%">
+        <span>预定成功，跳转到订单列表页面？</span>
+        <span slot="footer" class="dialog-footer">
+    <el-button @click="toCancel">取 消</el-button>
+    <el-button type="primary" @click="toOk">确 定</el-button>
+  </span>
+    </el-dialog>
+</div>
+<!-- end footer -->
+<!-- start js include path -->
+<script src="assets/plugins/jquery/jquery.min.js" ></script>
+<script src="assets/plugins/popper/popper.min.js" ></script>
+<script src="assets/plugins/jquery-blockui/jquery.blockui.min.js" ></script>
+<script src="assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- bootstrap -->
+<script src="assets/plugins/bootstrap/js/bootstrap.min.js" ></script>
+<!-- Common js-->
+<script src="assets/js/app.js" ></script>
+<script src="assets/js/layout.js" ></script>
+<script src="assets/js/theme-color.js" ></script>
+<!-- data tables -->
+<script src="assets/plugins/datatables/jquery.dataTables.min.js" ></script>
+<script src="assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap4.min.js" ></script>
+<script src="assets/js/pages/table/table_data.js" ></script>
+<!-- Material -->
+<script src="assets/plugins/material/material.min.js"></script>
+<script src="assets/js/pages/material_select/getmdl-select.js" ></script>
+<script  src="assets/plugins/material-datetimepicker/moment-with-locales.min.js"></script>
+<script  src="assets/plugins/material-datetimepicker/bootstrap-material-datetimepicker.js"></script>
+<script  src="assets/plugins/material-datetimepicker/datetimepicker.js"></script>
+<!-- dropzone -->
+<script src="assets/plugins/dropzone/dropzone.js" ></script>
+<script src="assets/plugins/dropzone/dropzone-call.js" ></script>
+<!-- animation -->
+<script src="assets/js/pages/ui/animations.js" ></script>
+</body>
+<style>
+
+</style>
+<script>
+    var vm=new Vue({
+        el:"#app",
+        data:{
+            user:{},
+            roomList:[],
+            type:"",
+            number:"",
+            arrive:"",
+            depart:"",
+            dialogVisible: false
+        },
+        methods:{
+            toCancel(){
+              this.dialogVisible=false
+            },
+            toOk(){
+                window.location.href="/userViewBooking.html"
+                this.dialogVisible=false
+            },
+            cancel(){
+                this.type=""
+                this.number=""
+                this.arrive=""
+                this.depart=""
+            },
+            fun3(){},
+            fun1(value){
+              this.type=value;
+              console.log(this.type)
+            },
+            fun2(value){
+              this.number=value;
+              console.log(this.number)
+            },
+            pay(){
+                console.log("zhifu")
+
+            },
+            add(){
+              console.log(this.type)
+                console.log(this.arrive)
+                var type=this.type
+                var number=this.number
+                var arrive=new Date(this.arrive)
+                arrive=arrive.getFullYear()+"-"+arrive.getMonth()+"-"+arrive.getDate()
+                arrive=this.arrive
+                console.log(arrive)
+                var depart=new Date(this.depart)
+                depart=depart.getFullYear()+"-"+depart.getMonth()+"-"+depart.getDate()
+                depart=this.depart
+                console.log(depart)
+                var url="/book/bookRoom"
+                var obj={"roomType":type,"roomNumber":number,"arrive":arrive,"depart":depart}
+                axios.post(url,obj).then(res=>{
+                    console.log(res.data)
+                    if(res.data.state==0){
+                        this.$message.success("预定成功")
+                        this.dialogVisible=true
+                    }else{
+                        this.$message.success("预定失败")
+                    }
+
+                })
+            },
+            queryUser(){
+                var url="/user/queryByPhone"
+                axios.post(url).then(res=>{
+                    if(res.data.state==0){
+                        console.log("结束")
+                        this.user=res.data.user
+                    }
+                })
+            },
+            queryAll(){
+                var url="/roomType/queryAll"
+                axios.post(url).then(res=>{
+                    console.log(res.data)
+                    if(res.data.state==0){
+                        this.roomList=res.data.roomList
+                    }
+                })
+            }
+        },
+        watch:{
+            "type"(){
+                console.log(this.type)
+            },
+            "arrive"(){
+                console.log(this.arrive)
+            }
+        },
+        created(){
+            this.queryAll()
+        },
+        mounted(){
+            this.queryUser()
+        }
+    })
+</script>
+</html>

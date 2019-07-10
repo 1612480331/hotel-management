@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta name="description" content="Responsive Admin Template" />
+    <meta name="author" content="SmartUniversity" />
+    <title>酒店预定</title>
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" type="text/css" />
+    <!-- icons -->
+    <link href="assets/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <!--bootstrap -->
+    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+   <!-- <link href="assets/plugins/summernote/summernote.css" rel="stylesheet">-->
+    <!-- data tables -->
+    <link href="assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css"/>
+    <!-- Material Design Lite CSS -->
+    <link rel="stylesheet" href="assets/plugins/material/material.min.css">
+    <link rel="stylesheet" href="assets/css/material_style.css">
+    <!-- animation -->
+    <link href="assets/css/pages/animate_page.css" rel="stylesheet">
+    <!-- Template Styles -->
+    <link href="assets/css/plugins.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/responsive.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/theme-color.css" rel="stylesheet" type="text/css" />
+    <!-- favicon -->
+    <link rel="shortcut icon" href="assets/img/favicon.ico" />
+
+    <script src="../lib/vue.js"></script>
+    <script src="../lib/axios.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+<!-- END HEAD -->
+<body class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md page-full-width header-white dark-sidebar-color logo-dark">
+<div id="app">
+    <div class="page-wrapper">
+        <!-- start header -->
+        <div class="page-header navbar navbar-fixed-top">
+            <div th:replace="user::headers"></div>
+            <div th:replace="user::navbar"></div>
+        </div>
+        <!-- end header -->
+        <!-- start page container -->
+        <div th:replace="user::container"></div>
+        <!-- end sidebar menu -->
+        <!-- start page content -->
+        <div class="page-content-wrapper">
+            <div class="page-content">
+                <div class="page-bar">
+                    <div class="page-title-breadcrumb">
+                        <div class=" pull-left">
+                            <div class="page-title">All Bookings</div>
+                        </div>
+                        <ol class="breadcrumb page-breadcrumb pull-right">
+                            <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="user.html">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
+                            </li>
+                            <li><a class="parent-item" href="">Booking</a>&nbsp;<i class="fa fa-angle-right"></i>
+                            </li>
+                            <li class="active">All Bookings</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-box">
+                            <div class="card-head">
+                                <header>All Bookings</header>
+                                <div class="tools">
+                                    <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                                    <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                                    <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                </div>
+                            </div>
+                            <div class="card-body ">
+                                <div class="row p-b-20">
+                                    <div class="col-md-6 col-sm-6 col-6">
+                                        <div class="btn-group">
+                                            <a href="new_booking.html" id="addRow" class="btn btn-info">
+                                                Add New <i class="fa fa-plus"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-6">
+                                        <div class="btn-group pull-right">
+                                            <a class="btn deepPink-bgcolor  btn-outline dropdown-toggle" data-toggle="dropdown">Tools
+                                                <i class="fa fa-angle-down"></i>
+                                            </a>
+                                            <ul class="dropdown-menu pull-right">
+                                                <li>
+                                                    <a href="javascript:;">
+                                                        <i class="fa fa-print"></i> Print </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;">
+                                                        <i class="fa fa-file-pdf-o"></i> Save as PDF </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;">
+                                                        <i class="fa fa-file-excel-o"></i> Export to Excel </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-scrollable">
+                                    <table class="table table-hover table-checkable order-column full-width" id="example4">
+                                        <thead>
+                                        <tr>
+                                            <th class="center"></th>
+                                            <th class="center"> RoomType </th>
+                                            <th class="center" style="width:20px"> RoomNumber </th>
+                                            <th class="center" style="width: 60px;"> Arrive </th>
+                                            <th class="center" style="width: 60px;"> Depart </th>
+                                            <th class="center"> Amount </th>
+                                            <th class="center"> Discount Price </th>
+                                            <th class="center"> Payment </th>
+                                            <th class="center"style="width: 60px;"> Action </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr class="odd gradeX" v-for="(item,index) in bookList" :key="index">
+                                            <td class="user-circle-img">
+                                                <img src="assets/img/user/user6.jpg" alt="">
+                                            </td>
+                                            <td class="center">{{item.roomType}}</td>
+                                            <td class="center">
+                                                {{item.roomNumber}}</td>
+                                            <td class="center">{{item.arrive | dataTransform}}</td>
+                                            <td class="center">{{item.depart | dataTransform}}</td>
+                                            <td class="center" ><span style="text-decoration: line-through; color: #666666;">￥{{item.orderPrice}}</span></td>
+                                            <td class="center"><span style="color: red;">￥{{item.payState}}</span></td>
+                                            <td class="center">
+                                                <span class="label label-sm label-success">{{item.response}}</span>
+                                            </td>
+                                            <td class="center">
+                                                <button type="button" @click="pay(item.bookId)" class="btn blue-bgcolor btn-outline btn-circle m-b-10" v-if="item.response=='待支付'">支付</button>
+                                                <button type="button" @click="del(item.bookId,item.roomType,item.response)" class="btn red btn-outline btn-circle m-b-10">取消订单</button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page content -->
+        <!-- start chat sidebar -->
+        <div th:replace="user::chatSideBar"></div>
+        <!-- end chat sidebar -->
+    </div>
+    <!-- end page container -->
+    <!-- start footer -->
+    <div th:replace="user::footer"></div>
+</div>
+<!-- end footer -->
+<!-- start js include path -->
+<script src="assets/plugins/jquery/jquery.min.js" ></script>
+<script src="assets/plugins/popper/popper.min.js" ></script>
+<script src="assets/plugins/jquery-blockui/jquery.blockui.min.js" ></script>
+<script src="assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- bootstrap -->
+<script src="assets/plugins/bootstrap/js/bootstrap.min.js" ></script>
+<!-- Common js-->
+<script src="assets/js/app.js" ></script>
+<script src="assets/js/layout.js" ></script>
+<script src="assets/js/theme-color.js" ></script>
+<!-- data tables -->
+<script src="assets/plugins/datatables/jquery.dataTables.min.js" ></script>
+<script src="assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap4.min.js" ></script>
+<script src="assets/js/pages/table/table_data.js" ></script>
+<!-- Material -->
+<script src="assets/plugins/material/material.min.js"></script>
+<!-- animation -->
+<script src="assets/js/pages/ui/animations.js" ></script>
+</body>
+<script>
+    Vue.filter("dataTransform",function (value) {
+        console.log(value)
+       var v=new Date(value)
+        v=v.getFullYear()+"-"+(parseInt(v.getMonth())+1)+"-"+(parseInt(v.getDate())-1)
+        return v;
+    })
+    var vm=new Vue({
+        el:"#app",
+        data:{
+            user:{},
+            bookList:[]
+        },
+        methods:{
+            pay(id){
+                var url="/book/payOrder"
+                axios.get(url,{params:{"bookId":id}}).then(res=>{
+                    if(res.data.state==0){
+                        this.$message.success("支付成功")
+                        this.queryBookByPhone()
+                    }else{
+                        this.$message.success("支付失败")
+                    }
+                })
+            },
+            del(bookId,roomType,response){
+                if(roomType=='单人间'||roomType=='普通标准间'){
+                    if(response!="待支付"){
+                        this.$message.error("该订单不可取消！")
+                        return;
+                    }
+                }
+                var url="/book/bookToHistory"
+                axios.get(url,{params:{"bookId":bookId}}).then(res=>{
+                    if(res.data.state==0){
+                        this.$message.success("恭喜您，取消订单成功")
+                        this.queryBookByPhone()
+                    }else{
+                        this.$message.error("取消订单失败！")
+                    }
+                })
+            },
+            queryBookByPhone(){
+                var url="/book/queryBookByPhone"
+                axios.get(url,{params:{"phone":this.user.phone}}).then(res=>{
+                    if(res.data.state==0){
+                        console.log(res.data)
+                        this.bookList=res.data.bookList
+                    }
+                })
+            },
+            queryUser(){
+                var url="/user/queryByPhone"
+                axios.post(url).then(res=>{
+                    if(res.data.state==0){
+                        console.log("结束")
+                        this.user=res.data.user
+                        this.queryBookByPhone()
+                    }
+                })
+            }
+        },
+        mounted(){
+            this.queryUser()
+        }
+    })
+</script>
+</html>
