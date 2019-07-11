@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta name="description" content="Responsive Admin Template" />
+    <meta name="author" content="SmartUniversity" />
+    <title>酒店预订</title>
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" type="text/css" />
+    <!-- icons -->
+    <link href="assets/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <!--bootstrap -->
+    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+   <!-- <link href="assets/plugins/summernote/summernote.css" rel="stylesheet">-->
+    <!-- Material Design Lite CSS -->
+    <link rel="stylesheet" href="assets/plugins/material/material.min.css">
+    <link rel="stylesheet" href="assets/css/material_style.css">
+    <!-- data tables -->
+    <link href="assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css"/>
+    <!-- animation -->
+    <link href="assets/css/pages/animate_page.css" rel="stylesheet">
+    <!-- Template Styles -->
+    <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/plugins.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/responsive.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/theme-color.css" rel="stylesheet" type="text/css" />
+    <!-- favicon -->
+    <link rel="shortcut icon" href="assets/img/favicon.ico" />
+
+    <script src="../lib/vue.js"></script>
+    <script src="../lib/vue-router.js"></script>
+    <script src="../lib/axios.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+<!-- END HEAD -->
+<body class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md header-white dark-sidebar-color logo-dark">
+<div id="app">
+    <div class="page-wrapper">
+        <!-- start header -->
+        <div th:replace="index::header1">
+        </div>
+        <!-- end header -->
+        <!-- start page container -->
+        <div class="page-container">
+            <!-- start sidebar menu -->
+            <div th:replace="index::sideBar"></div>
+            <!-- end sidebar menu -->
+            <!-- start page content -->
+            <div class="page-content-wrapper">
+                <div class="page-content">
+                    <div class="page-bar">
+                        <div class="page-title-breadcrumb">
+                            <div class=" pull-left">
+                                <div class="page-title">All Rooms</div>
+                            </div>
+                            <ol class="breadcrumb page-breadcrumb pull-right">
+                                <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="user.html">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
+                                </li>
+                                <li><a class="parent-item" href="">Room</a>&nbsp;<i class="fa fa-angle-right"></i>
+                                </li>
+                                <li class="active">All Rooms</li>
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 col-12 col-sm-6" v-for="(item,index) in roomList" :key="index">
+                            <div class="blogThumb">
+                                <div class="thumb-center"><img class="img-responsive" alt="user" :src="item.photo"></div>
+                                <div class="vehicle-name cyan-bgcolor">
+                                    <div class="user-name" v-text="item.typeName"><!--{{item.typeName}}--></div>
+                                </div>
+                                <div class="vehicle-box">
+                                    <p><strong>单价:</strong> {{item.typePrice}}/天</p>
+                                    <p><strong>面积:</strong> {{item.typeArea}}平方米</p>
+                                    <p><strong>可住人数:</strong> {{item.numberOfPeople}}人</p>
+                                    <p><strong>床位:</strong> {{item.numberOfBed}}</p>
+                                    <p><strong>是否可取消:</strong> {{item.cancel | cancel}}</p>
+                                    <p><strong>早餐:</strong> {{item.breakfast | breakfast}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- start chat sidebar -->
+            <div th:replace="index::chat">
+            </div>
+            <!-- end chat sidebar -->
+        </div>
+        <!-- end page container -->
+        <!-- start footer -->
+        <div th:replace="index::footer">
+        </div>
+        <!-- end footer -->
+    </div>
+</div>
+<!-- start js include path -->
+<script src="assets/plugins/jquery/jquery.min.js" ></script>
+<script src="assets/plugins/popper/popper.min.js" ></script>
+<script src="assets/plugins/jquery-blockui/jquery.blockui.min.js" ></script>
+<script src="assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- bootstrap -->
+<script src="assets/plugins/bootstrap/js/bootstrap.min.js" ></script>
+<script src="assets/plugins/sparkline/jquery.sparkline.min.js" ></script>
+<script src="assets/js/pages/sparkline/sparkline-data.js" ></script>
+<!-- Common js-->
+<script src="assets/js/app.js" ></script>
+<script src="assets/js/layout.js" ></script>
+<script src="assets/js/theme-color.js" ></script>
+<!-- data tables -->
+<script src="assets/plugins/datatables/jquery.dataTables.min.js" ></script>
+<script src="assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap4.min.js" ></script>
+<!--<script src="assets/js/pages/table/table_data.js" ></script>-->
+<!-- Material -->
+<script src="assets/plugins/material/material.min.js"></script>
+<!-- animation -->
+<script src="assets/js/pages/ui/animations.js" ></script>
+
+<!-- end js include path -->
+
+</body>
+<script>
+    Vue.filter("dataTransform",function (value) {
+        console.log(value)
+        var v=new Date(value)
+        v=v.getFullYear()+"-"+(parseInt(v.getMonth())+1)+"-"+(parseInt(v.getDate()))
+        console.log(v)
+        return v;
+    })
+    var vm=new Vue({
+        el:"#app",
+        data() {
+            return {
+                waiter: {},
+                key:"",
+                roomList:[]
+            }
+        },
+        methods: {
+            backRoom(value,phone){
+                var url="/check/checkOut"
+                axios.get(url,{params:{"roomId":value,"checkOutWaiter":this.waiter.account}}).then(res=>{
+                        if(res.data.state==0){
+                            if(res.data.levelMsg==2){
+                                this.$notify({
+                                    title:"退房成功",
+                                    message: '恭喜 '+phone+' 用户成为会员，当前等级Lv'+res.data.levelMsg,
+                                    type: 'success',
+                                    duration: 0
+                                })
+                            }else if(res.data.levelMsg==3){
+                                this.$notify({
+                                    title:"退房成功",
+                                    message: '恭喜 '+phone+' 用户成为高级会员，当前等级Lv'+res.data.levelMsg,
+                                    type: 'success',
+                                    duration: 0
+                                })
+                            }else{
+                                this.$message.success("退房成功")
+                            }
+                            this.queryCheckInList()
+                        }else{
+                            this.$message.error("退房失败")
+                        }
+                    }
+                )
+            },
+            continueRoom(value){
+
+            },
+            queryAll(){
+                var url="/roomType/queryAll"
+                axios.post(url).then(res=>{
+                    console.log(res.data)
+                    if(res.data.state==0){
+                        this.roomList=res.data.roomList
+                    }
+                })
+            },
+            search(value){
+                return this.checkInList.filter(item=>{
+                    if(item.phone.includes(value)){
+                        return item;
+                    }
+                })
+            },
+            queryAccount() {
+                console.log("开始")
+                let url = "/waiter/queryByAccount"
+                axios.post(url).then(res => {
+                    if (res.data.state == 0) {
+                        console.log("结束")
+                        console.log(res.data)
+                        this.waiter = res.data.waiter
+                    }
+                })
+            },
+
+        },
+        created() {
+
+            this.queryAccount()
+            this.queryAll()
+        }
+    })
+</script>
+</html>

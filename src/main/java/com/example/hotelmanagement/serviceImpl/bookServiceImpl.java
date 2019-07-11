@@ -15,10 +15,37 @@ public class bookServiceImpl implements bookService {
 
     @Autowired
     private bookMapper bookMapper;
+
     @Override
-    public List<remainRoom> queryRemainByDate(Date date) {
-        System.out.println(date);
-        return bookMapper.queryRemainByDate(date);
+    public remainRoom queryRemainByDate(Date date, String typeName) {
+        System.out.println(typeName+date);
+        remainRoom  r=bookMapper.queryRemainByDate(date,typeName);
+        if(r==null)
+           return queryRemainByName(typeName);
+        return r;
+    }
+
+    @Override
+    public remainRoom queryRemainByName(String typeName) {
+        return bookMapper.queryRemainByName(typeName);
+    }
+
+
+    @Override
+    public int bookFailed(book book1, String waiter) {
+        System.out.println(book1.getBookId());
+        return bookMapper.bookFailed(book1,waiter);
+    }
+
+
+    @Override
+    public int sumPrice(String phone) {
+        return bookMapper.sumPrice(phone);
+    }
+
+    @Override
+    public int changeBookState(int bookId) {
+        return bookMapper.changeBookState(bookId);
     }
 
     @Override
@@ -48,6 +75,11 @@ public class bookServiceImpl implements bookService {
     @Override
     public book queryBookByBookId(int bookId) {
         return bookMapper.queryBookByBookId(bookId);
+    }
+
+    @Override
+    public List<book> queryAll() {
+        return bookMapper.queryAll();
     }
 
 

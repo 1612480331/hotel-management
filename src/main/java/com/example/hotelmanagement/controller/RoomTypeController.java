@@ -31,5 +31,4 @@ public class RoomTypeController {
         map.put("state",state);
         return map;
     }
-
 }

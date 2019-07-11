@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta name="description" content="Responsive Admin Template" />
+    <meta name="author" content="SmartUniversity" />
+    <title>酒店预订</title>
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" type="text/css" />
+	<!-- icons -->
+    <link href="assets/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+	<!--bootstrap -->
+	<link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+	<link href="assets/plugins/summernote/summernote.css" rel="stylesheet">
+    <!-- Material Design Lite CSS -->
+	<link rel="stylesheet" href="assets/plugins/material/material.min.css">
+	<link rel="stylesheet" href="assets/css/material_style.css">
+	<!-- data tables -->
+    <link href="assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css"/>
+	<!-- animation -->
+	<link href="assets/css/pages/animate_page.css" rel="stylesheet">
+	<!-- Template Styles -->
+    <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/plugins.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/responsive.css" rel="stylesheet" type="text/css" />
+	<link href="assets/css/theme-color.css" rel="stylesheet" type="text/css" />
+	<!-- favicon -->
+    <link rel="shortcut icon" href="assets/img/favicon.ico" />
+
+	<script src="../lib/vue.js"></script>
+	<script src="../lib/vue-router.js"></script>
+	<script src="../lib/axios.js"></script>
+	<!-- 引入样式 -->
+	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+	<!-- 引入组件库 -->
+	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+<!-- END HEAD -->
+<body class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md header-white dark-sidebar-color logo-dark">
+<div id="app">
+    <div class="page-wrapper">
+        <!-- start header -->
+		<div th:replace="index::header1">
+        </div>
+        <!-- end header -->
+        <!-- start page container -->
+        <div class="page-container">
+ 			<!-- start sidebar menu -->
+ 			<div th:replace="index::sideBar"></div>
+			 <!-- end sidebar menu -->
+			<!-- start page content -->
+            <div class="page-content-wrapper">
+                <div class="page-content">
+                    <div class="page-bar">
+                        <div class="page-title-breadcrumb">
+                            <div class=" pull-left">
+                                <div class="page-title">All Bookings</div>
+                            </div>
+                            <ol class="breadcrumb page-breadcrumb pull-right">
+                                <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="index.html">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
+                                </li>
+                                <li><a class="parent-item" href="">Booking</a>&nbsp;<i class="fa fa-angle-right"></i>
+                                </li>
+                                <li class="active">All Bookings</li>
+                            </ol>
+                        </div>
+                    </div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="card card-box">
+								<div class="card-head">
+									<header>All Bookings</header>
+									<div class="tools">
+										<a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+										<a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+										<a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+									</div>
+								</div>
+								<div class="card-body ">
+									<div class="row p-b-20">
+										<div class="col-md-4 col-sm-4 col-4">
+											<div class="btn-group">
+												<a href="new_booking.html" id="addRow" class="btn btn-info" @click="newRoom">
+													Add New <i class="fa fa-plus"></i>
+												</a>
+											</div>
+										</div>
+										<div class="col-md-4 col-sm-4 col-4">
+											<span style="display: flex;justify-content: center"><div>Search:</div>
+											<el-input
+													size="mini"
+													placeholder="请输入内容"
+													v-model="key"
+													clearable>
+											</el-input>
+											</span>
+										</div>
+										<!--<div class="col-md-4 col-sm-4 col-4">
+											<div class="btn-group pull-right">
+												<a class="btn deepPink-bgcolor  btn-outline dropdown-toggle" data-toggle="dropdown">类型
+													<i class="fa fa-angle-down"></i>
+												</a>
+												<ul class="dropdown-menu pull-right">
+													<li>
+														<a href="javascript:;">
+															<i class="fa fa-print"></i> print </a>
+													</li>
+													<li>
+														<a href="javascript:;">
+															<i class="fa fa-file-pdf-o"></i> Save as PDF </a>
+													</li>
+													<li>
+														<a href="javascript:;">
+															<i class="fa fa-file-excel-o"></i> Export to Excel </a>
+													</li>
+												</ul>
+											</div>
+										</div>-->
+									</div>
+									<div class="table-scrollable">
+										<table class="table table-hover  full-width" id="example4">
+											<thead>
+											<tr>
+												<th class="center"></th>
+												<th class="center"> Phone</th>
+												<th class="center"> Room Type </th>
+												<th class="center" > Room Number </th>
+												<th class="center"> Arrive </th>
+												<th class="center" > Depart </th>
+												<th class="center"> Amount </th>
+												<th class="center"> Discount Price </th>
+												<th class="center"> Payment </th>
+												<th class="center"style="width: 60px;"> Action </th>
+											</tr>
+											</thead>
+											<tbody>
+											<tr class="odd gradeX" v-for="(item,index) in search(key)" :key="index">
+												<td class="user-circle-img">
+													<img src="assets/img/user/user6.jpg" alt="">
+												</td>
+												<td class="center">{{item.phone}}</td>
+												<td class="center">{{item.roomType}}</td>
+												<td class="center">
+													{{item.roomNumber}}</td>
+												<td class="center">{{item.arrive | dataTransform}}</td>
+												<td class="center">{{item.depart | dataTransform}}</td>
+												<td class="center" ><span style="text-decoration: line-through; color: #666666;">￥{{item.orderPrice}}</span></td>
+												<td class="center"><span style="color: red;">￥{{item.payState}}</span></td>
+												<td class="center">
+													<span class="label label-sm label-success">{{item.response}}</span>
+												</td>
+												<td class="center">
+													<button type="button" @click="checkIn(item.bookId)" class="btn blue-bgcolor btn-outline btn-circle m-b-10" v-if="item.response=='预定成功'">入住</button>
+													<button type="button" @click="pay(item.bookId)" class="btn blue-bgcolor btn-outline btn-circle m-b-10" v-if="item.response=='待处理'">同意</button>
+													<button type="button" @click="del(item.bookId,item.roomType,item.response)" class="btn red btn-outline btn-circle m-b-10" v-if="item.response=='待处理'">不同意</button>
+
+												</td>
+											</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+                </div>
+            </div>
+            <!-- end page content -->
+            <!-- start chat sidebar -->
+            <div th:replace="index::chat">
+            </div>
+            <!-- end chat sidebar -->
+        </div>
+        <!-- end page container -->
+        <!-- start footer -->
+        <div th:replace="index::footer">
+        </div>
+        <!-- end footer -->
+    </div>
+</div>
+    <!-- start js include path -->
+    <script src="assets/plugins/jquery/jquery.min.js" ></script>
+    <script src="assets/plugins/popper/popper.min.js" ></script>
+    <script src="assets/plugins/jquery-blockui/jquery.blockui.min.js" ></script>
+	<script src="assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- bootstrap -->
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js" ></script>
+	<script src="assets/plugins/sparkline/jquery.sparkline.min.js" ></script>
+	<script src="assets/js/pages/sparkline/sparkline-data.js" ></script>
+    <!-- Common js-->
+	<script src="assets/js/app.js" ></script>
+    <script src="assets/js/layout.js" ></script>
+	<script src="assets/js/theme-color.js" ></script>
+	<!-- data tables -->
+    <script src="assets/plugins/datatables/jquery.dataTables.min.js" ></script>
+ 	<script src="assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap4.min.js" ></script>
+ 	<!--<script src="assets/js/pages/table/table_data.js" ></script>-->
+	<!-- Material -->
+	<script src="assets/plugins/material/material.min.js"></script>
+	<!-- animation -->
+	<script src="assets/js/pages/ui/animations.js" ></script>
+
+    <!-- end js include path -->
+
+</body>
+<script>
+	Vue.filter("dataTransform",function (value) {
+		console.log(value)
+		var v=new Date(value)
+		v=v.getFullYear()+"-"+(parseInt(v.getMonth())+1)+"-"+(parseInt(v.getDate()))
+		console.log(v)
+		return v;
+	})
+	var vm=new Vue({
+		el:"#app",
+		data() {
+			return {
+				waiter: {},
+				allBookList:[],
+				key:"",
+			}
+		},
+		methods: {
+			search(value){
+				return this.allBookList.filter(item=>{
+					if(item.phone.includes(value)){
+						return item;
+					}
+				})
+			},
+			checkIn(id){/*入住*/
+
+				console.log("id"+id)
+				var url="/check/checkIn"
+				axios.get(url,{params:{"bookId":id,"waiter":this.waiter.account}}).then(res=>{
+					if(res.data.state==0){
+						this.$message.success("入住成功");
+						this.queryAllBook()
+					}else{
+						this.$message.error("入住失败")
+					}
+				})
+			},
+			pay(id){  /*同意*/
+				var url="/book/changeBookState"
+				axios.get(url,{params:{"bookId":id}}).then(res=>{
+					if(res.data.state==0){
+						this.$message.success("处理订单成功")
+						this.queryAllBook()
+					}else{
+						this.$message.success("处理订单失败")
+					}
+				})
+			},
+			del(bookId,roomType,response){/*不同意*/
+				var url="/book/bookFailed"
+				axios.get(url,{params:{"bookId":bookId,"waiter":this.waiter.account}}).then(res=>{
+					if(res.data.state==0){
+						this.$message.success("退回订单成功")
+						this.queryAllBook()
+					}else{
+						this.$message.error("退回订单失败！")
+					}
+				})
+			},
+			queryAccount() {
+				console.log("开始")
+				let url = "/waiter/queryByAccount"
+				axios.post(url).then(res => {
+					if (res.data.state == 0) {
+						console.log("结束")
+						console.log(res.data)
+						this.waiter = res.data.waiter
+					}
+				})
+			},
+			queryAllBook(){
+				var url="/book/queryAll"
+				axios.get(url).then(res=>{
+					if(res.data.state==0){
+						this.allBookList=res.data.bookList
+					}else if(res.data.state==1){
+						this.allBookList=[]
+					}
+				})
+			},
+			newRoom(){
+				this.$message.warning("你暂无权限使用此功能")
+			}
+		},
+		created() {
+			this.queryAccount()
+			this.queryAllBook()
+		}
+	})
+</script>
+</html>

@@ -10,4 +10,5 @@ public interface UserMapper {
     public int insert(User user);
     public User queryByIdNumber(User user);
     public int changePwd(User user);
+    public int changeLevel(String phone,int level);
 }

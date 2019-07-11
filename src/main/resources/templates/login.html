@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta name="description" content="Responsive Admin Template" />
     <meta name="author" content="SmartUniversity" />
-    <title>Spice Hotel | Bootstrap 4 Admin Dashboard Template + UI Kit</title>
+    <title>酒店预定</title>
     <!-- google font -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" type="text/css" />
 	<!-- icons -->
@@ -39,7 +39,7 @@
 						Log in
 					</span>
 					<div class="wrap-input100 validate-input" data-validate = "Enter username">
-						<input class="input100" type="text" name="username" placeholder="Username" v-model="phone">
+						<input class="input100" type="text" name="username" placeholder="Phone\Account" v-model="phone">
 						<span class="focus-input100" data-placeholder="&#xf207;"></span>
 					</div>
 					<div class="wrap-input100 validate-input" data-validate="Enter password">
@@ -95,6 +95,10 @@
 				let radios=this.radios.trim();
 				let phone = this.phone.trim();
 				let password = this.password.trim();
+				console.log(phone.length)
+				if(radios=="用户"&&phone.length!=11){
+					this.$message.error("手机号必须为11位")
+				}
 				if (phone == "" || phone == null || password == "" || password == null) {
 					this.$message.error('账号和密码不能为空')
 					this.phone = this.password = ""

@@ -35,6 +35,67 @@ public class bookController {
     private RoomTypeService roomTypeService;
 
 
+    @RequestMapping("/queryRemainByDate")
+    public remainRoom queryRemainByDate(Date date1,String typeName) throws ParseException {
+        remainRoom r = bookService.queryRemainByDate(date1,typeName);
+        if(r==null)
+            return bookService.queryRemainByName(typeName);
+        return r;
+    }
+
+
+
+    /**
+     * 预定失败时通过此方法将订单更新到历史列表里
+     * 再从预定列表中删除
+     * @param bookId
+     * @return
+     */
+    @RequestMapping("/bookFailed")
+    public Map<String,Object> bookFailed(@RequestParam int bookId,String waiter){
+        Map map=new HashMap();
+        int state=0;
+        book book1 = bookService.queryBookByBookId(bookId);
+        int i=bookService.bookFailed(book1,waiter);
+        if(i!=0){
+          int j=bookService.deleteBook(bookId);
+          if(j==0){
+              state=1;
+          }
+        }else{
+            state=1;
+        }
+        map.put("state",state);
+        return map;
+    }
+
+
+    @RequestMapping("/changeBookState")
+    public Map<String,Object> changeBookState(int bookId){
+        Map map=new HashMap<String,Object>();
+        int state=0;
+        int i=bookService.changeBookState(bookId);
+        if(i==0){
+            state=1;
+        }
+        map.put("state",state);
+        return map;
+    }
+
+
+    @RequestMapping("/queryAll")
+    public Map<String,Object> queryAll(){
+        Map map=new HashMap();
+        int state=0;
+        List<book> bookList=bookService.queryAll();
+        if(bookList.isEmpty()){
+            state=1;
+        }
+        map.put("state",state);
+        map.put("bookList",bookList);
+        return map;
+    }
+
     @RequestMapping("/bookToHistory")
     public Map<String,Object> bookToHistory(int bookId){
         Map map=new HashMap<String,Object>();
@@ -79,18 +140,6 @@ public class bookController {
     }
 
 
-    /**
-     * 根据时间查询当前所有房型余量
-     * @param date  预定时间
-     * @return
-     */
-    @RequestMapping("/queryRemainByDate")
-    public Map<String,Object> queryRemainByDate(@RequestParam Date date){
-        Map map=new HashMap<String,Object>();
-        List<remainRoom> remainRoomList= bookService.queryRemainByDate(date);
-        map.put("remainRoomList",remainRoomList);
-        return map;
-    }
 
     /**
      * 先通过天数和房间数计算出金额
@@ -107,33 +156,42 @@ public class bookController {
         Map map=new HashMap<String,Object>();
         System.out.println(book.getArrive());
         int state=0;
-        String phone=session.getAttribute("phone").toString();
-        book.setPhone(phone);
-        //获取入住天数
-        int days = getDistanceOfDate(book.getArrive(),book.getDepart());
-        System.out.println(days);
-        //根据房型获取单价
+        int errorMsg=0;
+        remainRoom r = bookService.queryRemainByDate(book.getArrive(),book.getRoomType());
+        System.out.println(r);
+        if(r.getTypeNumber()<book.getRoomNumber()){
+            errorMsg=r.getTypeNumber();
+            state=2;//无余量
+        }else {
+            String phone = session.getAttribute("phone").toString();
+            book.setPhone(phone);
+            //获取入住天数
+            int days = getDistanceOfDate(book.getArrive(), book.getDepart());
+            System.out.println(days);
+            //根据房型获取单价
 //        roomTypeController rtc = new roomTypeController();
-        float unitPrice = roomTypeService.queryPriceByType(book.getRoomType());
-        //根据订单计算总价
-        float orderPrice = unitPrice * days * book.getRoomNumber();
-        book.setOrderPrice(orderPrice);
-        float payState;
-        if(days * book.getRoomNumber()<=5)     //小于五天 原价支付
-            payState = orderPrice;
-        else if(days * book.getRoomNumber()<=10) //5-10天 95折
-            payState = (float) (orderPrice * 0.95);
-        else if(days * book.getRoomNumber()<=30)  //11-30天 9折
-            payState = (float) (orderPrice * 0.9);
-        else                //30天以上 8折
-            payState = (float) (orderPrice * 0.8);
-        book.setPayState(payState);
-        //将信息写入预定表
-        int i=bookService.addOrder(book);
-        if(i==0){
-            state=1;
+            float unitPrice = roomTypeService.queryPriceByType(book.getRoomType());
+            //根据订单计算总价
+            float orderPrice = unitPrice * days * book.getRoomNumber();
+            book.setOrderPrice(orderPrice);
+            float payState;
+            if (days * book.getRoomNumber() <= 5)     //小于五天 原价支付
+                payState = orderPrice;
+            else if (days * book.getRoomNumber() <= 10) //5-10天 95折
+                payState = (float) (orderPrice * 0.95);
+            else if (days * book.getRoomNumber() <= 30)  //11-30天 9折
+                payState = (float) (orderPrice * 0.9);
+            else                //30天以上 8折
+                payState = (float) (orderPrice * 0.8);
+            book.setPayState(payState);
+            //将信息写入预定表
+            int i = bookService.addOrder(book);
+            if (i == 0) {
+                state = 1;
+            }
         }
         map.put("state",state);
+        map.put("errorMsg",errorMsg);
         return map;
     }
 

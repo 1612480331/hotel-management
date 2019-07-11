@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8" />
@@ -7,7 +7,7 @@
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta name="description" content="Responsive Admin Template" />
     <meta name="author" content="SmartUniversity" />
-    <title>Spice Hotel | Bootstrap 4 Admin Dashboard Template + UI Kit</title>
+    <title>酒店预订</title>
     <!-- google font -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" type="text/css" />
 	<!-- icons -->
@@ -44,19 +44,19 @@
 <div id="app">
     <div class="page-wrapper">
         <!-- start header -->
-        <div class="page-header navbar navbar-fixed-top">
+        <div class="page-header navbar navbar-fixed-top" th:fragment="header1">
             <div class="page-header-inner ">
                 <!-- logo start -->
                 <div class="page-logo">
                     <a href="index.html">
-                    <img alt="" src="assets/img/logo.png">
-                    <span class="logo-default" >Spice</span> </a>
+                    <img alt="" src="imgs/酒店头像.jpg" style="width: 40px;height:40px">
+                    <span class="logo-default" >Home</span> </a>
                 </div>
                 <!-- logo end -->
 				<ul class="nav navbar-nav navbar-left in">
 					<li><a href="#" class="menu-toggler sidebar-toggler"><i class="icon-menu"></i></a></li>
 				</ul>
-                 <form class="search-form-opened" action="#" method="GET">
+               <!--  <form class="search-form-opened" action="#" method="GET">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Search..." name="query">
                         <span class="input-group-btn search-btn">
@@ -65,18 +65,18 @@
                            </a>
                         </span>
                     </div>
-                </form>
+                </form>-->
                 
                 <!-- start mobile menu -->
-                <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+              <!--  <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
                     <span></span>
-                </a>
+                </a>-->
                <!-- end mobile menu -->
                 <!-- start header menu -->
                 <div class="top-menu">
                     <ul class="nav navbar-nav pull-right">
                         <!-- start notification dropdown -->
-                        <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+                <!--        <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
                             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                 <i class="fa fa-bell-o"></i>
                                 <span class="badge headerBadgeColor1"> 6 </span>
@@ -139,10 +139,10 @@
                                     </div>
                                 </li>
                             </ul>
-                        </li>
+                        </li>-->
                         <!-- end notification dropdown -->
                         <!-- start message dropdown -->
- 						<li class="dropdown dropdown-extended dropdown-inbox" id="header_inbox_bar">
+ 						<!--<li class="dropdown dropdown-extended dropdown-inbox" id="header_inbox_bar">
                             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                 <i class="fa fa-envelope-o"></i>
                                 <span class="badge headerBadgeColor2"> 2 </span>
@@ -215,16 +215,16 @@
                                     </div>
                                 </li>
                             </ul>
-                        </li>
+                        </li>-->
                         <!-- end message dropdown -->
  						<!-- start manage user dropdown -->
  						<li class="dropdown dropdown-user">
                             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                <img alt="" class="img-circle " src="assets/img/dp.jpg" />
-                                <span class="username username-hide-on-mobile"> {{waiter.name}}</span>
+                                <img alt="" class="img-circle " src="imgs/头像.jpg" />
+                                <span class="username username-hide-on-mobile" v-text="waiter.name"><!-- {{}}--></span>
                                 <i class="fa fa-angle-down"></i>
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-default animated jello">
+                           <!-- <ul class="dropdown-menu dropdown-menu-default animated jello">
                                 <li>
                                     <a href="user_profile.html">
                                         <i class="icon-user"></i> Profile </a>
@@ -249,7 +249,7 @@
                                     <a href="login.html">
                                         <i class="icon-logout"></i> Log Out </a>
                                 </li>
-                            </ul>
+                            </ul>-->
                         </li>
                         <!-- end manage user dropdown -->
                         <li class="dropdown dropdown-quick-sidebar-toggler">
@@ -265,7 +265,7 @@
         <!-- start page container -->
         <div class="page-container">
  			<!-- start sidebar menu -->
- 			<div class="sidebar-container">
+ 			<div class="sidebar-container" th:fragment="sideBar">
  				<div class="sidemenu-container navbar-collapse collapse fixed-menu">
 	                <div id="remove-scroll">
 	                    <ul class="sidemenu page-header-fixed p-t-20" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
@@ -278,13 +278,13 @@
 	                            <div class="user-panel">
 	                                <div class="row">
                                             <div class="sidebar-userpic">
-                                                <img src="assets/img/dp.jpg" class="img-responsive" alt=""> </div>
+                                                <img src="imgs/头像.jpg" class="img-responsive" alt=""> </div>
                                         </div>
                                         <div class="profile-usertitle">
-                                            <div class="sidebar-userpic-name"> John Deo </div>
-                                            <div class="profile-usertitle-job"> Manager </div>
+                                            <div class="sidebar-userpic-name" v-text="waiter.name"> <!--{{waiter.name}} --></div>
+                                            <div class="profile-usertitle-job"> Waiter </div>
                                         </div>
-                                        <div class="sidebar-userpic-btn">
+                                       <!-- <div class="sidebar-userpic-btn">
 									        <a class="tooltips" href="user_profile.html" data-placement="top" data-original-title="Profile">
 									        	<i class="material-icons">person_outline</i>
 									        </a>
@@ -297,34 +297,34 @@
 									        <a class="tooltips" href="login.html" data-placement="top" data-original-title="Logout">
 									        	<i class="material-icons">input</i>
 									        </a>
-									    </div>
+									    </div>-->
 	                            </div>
 	                        </li>
-	                        <li class="menu-heading">
-			                	<span>-- Main</span>
-			                </li>
-	                        <li class="nav-item start active">
+	                        <!--<li class="menu-heading">
+			                	<span>&#45;&#45; Main</span>
+			                </li>-->
+	                        <li class="nav-item start">
 	                            <a href="#" class="nav-link nav-toggle">
 	                                <i class="material-icons">dashboard</i>
-	                                <span class="title">Dashboard</span>
+	                                <span class="title">Home</span>
                                 	<span class="selected"></span>
                                 	<span class="arrow open"></span>
 	                            </a>
 	                            <ul class="sub-menu">
 	                                <li class="nav-item active">
 	                                    <a href="index.html" class="nav-link ">
-	                                        <span class="title">Dashboard 1</span>
+	                                        <span class="title">Main</span>
 	                                        <span class="selected"></span>
 	                                    </a>
 	                                </li>
-	                                <li class="nav-item ">
+	                             <!--   <li class="nav-item ">
 	                                    <a href="dashboard2.html" class="nav-link ">
 	                                        <span class="title">Dashboard 2</span>
 	                                    </a>
-	                                </li>
+	                                </li>-->
 	                            </ul>
 	                        </li>
-	                        <li class="nav-item">
+	                       <!-- <li class="nav-item">
 	                            <a href="#" class="nav-link nav-toggle">
 	                                <i class="material-icons">email</i>
 	                                <span class="title">Email</span>
@@ -348,7 +348,7 @@
 	                                    </a>
 	                                </li>
 	                            </ul>
-	                        </li>
+	                        </li>-->
 	                        <li class="nav-item">
 	                            <a href="#" class="nav-link nav-toggle">
 	                                <i class="material-icons">business_center</i>
@@ -356,21 +356,21 @@
 	                                <span class="arrow"></span>
 	                            </a>
 	                            <ul class="sub-menu">
-	                                <li class="nav-item">
+	                              <!--  <li class="nav-item">
 	                                    <a href="new_booking.html" class="nav-link ">
 	                                        <span class="title">New Booking</span>
 	                                    </a>
-	                                </li>
+	                                </li>-->
 	                                <li class="nav-item">
 	                                    <a href="view_booking.html" class="nav-link ">
 	                                        <span class="title">View Booking</span>
 	                                    </a>
 	                                </li>
-	                                <li class="nav-item">
+	                               <!-- <li class="nav-item">
 	                                    <a href="edit_booking.html" class="nav-link ">
 	                                        <span class="title">Edit Booking</span>
 	                                    </a>
-	                                </li>
+	                                </li>-->
 	                            </ul>
 	                        </li>
 	                        <li class="nav-item">
@@ -381,23 +381,23 @@
 	                            </a>
 	                            <ul class="sub-menu">
 	                                <li class="nav-item">
-	                                    <a href="add_room.html" class="nav-link ">
-	                                        <span class="title">Add Room Details</span>
+	                                    <a href="backRoom.html" class="nav-link ">
+	                                        <span class="title">Back Room</span>
 	                                    </a>
 	                                </li>
 	                                <li class="nav-item">
-	                                    <a href="all_rooms.html" class="nav-link ">
+	                                    <a href="allRoom.html" class="nav-link ">
 	                                        <span class="title">View All Rooms</span>
 	                                    </a>
 	                                </li>
 	                                <li class="nav-item">
-	                                    <a href="edit_room.html" class="nav-link ">
-	                                        <span class="title">Edit Room Details</span>
+	                                    <a href="addRoom.html" class="nav-link ">
+	                                        <span class="title">Add Room </span>
 	                                    </a>
 	                                </li>
 	                            </ul>
 	                        </li>
-	                        <li class="nav-item">
+	                        <!--<li class="nav-item">
 	                            <a href="#" class="nav-link nav-toggle">
 	                                <i class="material-icons">group</i>
 	                                <span class="title">Staff</span>
@@ -420,8 +420,8 @@
 	                                    </a>
 	                                </li>
 	                            </ul>
-	                        </li>
-	                        <li class="nav-item">
+	                        </li>-->
+	                       <!-- <li class="nav-item">
 	                            <a href="#" class="nav-link nav-toggle">
 	                                <i class="material-icons">local_taxi</i>
 	                                <span class="title">Transportation</span>
@@ -444,11 +444,11 @@
 	                                    </a>
 	                                </li>
 	                            </ul>
-	                        </li>
-	                        <li class="menu-heading m-t-20">
-			                	<span>-- Layout, Apps &amp; Widget</span>
-			                </li>
-	                        <li class="nav-item">
+	                        </li>-->
+	                     <!--   <li class="menu-heading m-t-20">
+			                	<span>&#45;&#45; Layout, Apps &amp; Widget</span>
+			                </li>-->
+	                       <!-- <li class="nav-item">
 	                            <a href="#" class="nav-link nav-toggle"> <i class="material-icons">desktop_mac</i>
 	                                <span class="title">Layout</span> <span class="arrow"></span>
 	                            </a>
@@ -478,17 +478,17 @@
 	                                    </a>
 	                                </li>
 	                            </ul>
-	                        </li>
+	                        </li>-->
 	                        <li class="nav-item">
 	                            <a href="#" class="nav-link nav-toggle"> <i class="material-icons">grain</i>
 	                                <span class="title">Apps</span> <span class="arrow"></span>
 	                            </a>
 	                            <ul class="sub-menu">
 	                                <li class="nav-item">
-	                                    <a href="chat.html" class="nav-link "> <span class="title">Chat</span>
+	                                    <a href="chat2.html" class="nav-link "> <span class="title">Chat</span>
 	                                    </a>
 	                                </li>
-	                                <li class="nav-item">
+	                               <!-- <li class="nav-item">
 	                                    <a href="contact_list.html" class="nav-link "> <span class="title">Contact List</span>
 	                                    </a>
 	                                </li>
@@ -507,18 +507,18 @@
 	                                <li class="nav-item">
 	                                    <a href="calendar.html" class="nav-link "> <span class="title">Calendar</span>
 	                                    </a>
-	                                </li>
+	                                </li>-->
 	                            </ul>
 	                        </li>
-	                        <li class="nav-item">
+	                        <!--<li class="nav-item">
 	                            <a href="widget.html" class="nav-link nav-toggle"> <i class="material-icons">widgets</i>
 	                                <span class="title">Widget</span> 
 	                            </a>
-	                        </li>
-	                        <li class="menu-heading m-t-20">
-			                	<span>-- Elements, Forms &amp; Tables</span>
-			                </li>
-	                        <li class="nav-item">
+	                        </li>-->
+	                       <!-- <li class="menu-heading m-t-20">
+			                	<span>&#45;&#45; Elements, Forms &amp; Tables</span>
+			                </li>-->
+	                     <!--   <li class="nav-item">
 	                            <a href="#" class="nav-link nav-toggle">
 	                                <i class="material-icons">dvr</i>
 	                                <span class="title">UI Elements</span> 
@@ -729,9 +729,9 @@
 	                                    </a>
 	                                </li>
 	                            </ul>
-	                        </li>
-	                        <li class="menu-heading m-t-20">
-			                	<span>-- Extra Components</span>
+	                        </li>-->
+	                       <!-- <li class="menu-heading m-t-20">
+			                	<span>&#45;&#45; Extra Components</span>
 			                </li>
 	                        <li class="nav-item">
 	                            <a href="javascript:;" class="nav-link nav-toggle">
@@ -924,7 +924,7 @@
 	                                        <i class="fa fa-volume-up"></i> Item 3 </a>
 	                                </li>
 	                            </ul>
-	                        </li>
+	                        </li>-->
 	                    </ul>
 	                </div>
                 </div>
@@ -936,12 +936,12 @@
                     <div class="page-bar">
                         <div class="page-title-breadcrumb">
                             <div class=" pull-left">
-                                <div class="page-title">Dashboard</div>
+                                <div class="page-title">Main</div>
                             </div>
                             <ol class="breadcrumb page-breadcrumb pull-right">
                                 <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="index.html">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
                                 </li>
-                                <li class="active">Dashboard</li>
+                                <li class="active">Main</li>
                             </ol>
                         </div>
                     </div>
@@ -1614,7 +1614,7 @@
             </div>
             <!-- end page content -->
             <!-- start chat sidebar -->
-            <div class="chat-sidebar-container" data-close-on-body-click="false">
+            <div class="chat-sidebar-container" data-close-on-body-click="false" th:fragment="chat">
                 <div class="chat-sidebar">
                     <ul class="nav nav-tabs">
                     	<li class="nav-item">
@@ -1998,9 +1998,9 @@
         </div>
         <!-- end page container -->
         <!-- start footer -->
-        <div class="page-footer">
-            <div class="page-footer-inner"> 2018 &copy; Spice Hotel Template By
-            <a href="mailto:redstartheme@gmail.com" target="_top" class="makerCss">RedStar Theme</a>
+        <div class="page-footer" th:fragment="footer">
+            <div class="page-footer-inner"> 2019 &copy; 怡红院 大酒店
+            <a href="mailto:redstartheme@gmail.com" target="_top" class="makerCss">军工路 516</a>
             </div>
             <div class="scroll-to-top">
                 <i class="icon-arrow-up"></i>

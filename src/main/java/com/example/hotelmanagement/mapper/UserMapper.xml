@@ -13,7 +13,7 @@
         select * from user where idNumber=#{idNumber}
     </select>
     <insert id="insert" parameterType="com.example.hotelmanagement.entity.User">
-        insert into user values(#{phone},#{name},#{password},#{level},#{idNumber})
+        insert into user(phone,name,password,idNumber) values(#{phone},#{name},#{password},#{idNumber})
     </insert>
     <update id="changePwd" parameterType="com.example.hotelmanagement.entity.User">
         update user
@@ -22,4 +22,12 @@
         </set>
         where phone=#{phone}
     </update>
+    <update id="changeLevel">
+        update user
+        <set>
+            <if test="level!=null">level=#{level}</if>
+        </set>
+        where phone=#{phone}
+    </update>
+
 </mapper>

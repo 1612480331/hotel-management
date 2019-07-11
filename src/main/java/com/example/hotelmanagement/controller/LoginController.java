@@ -45,6 +45,8 @@ public class LoginController {
         }
         if(state==0){
             session.setAttribute("phone",user.getPhone());
+            //新增
+            session.setAttribute("account1",user.getPhone());
             System.out.println("保存session:"+session.getAttribute("phone"));
         }
         map.put("msg",msg);

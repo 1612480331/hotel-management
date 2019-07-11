@@ -35,4 +35,9 @@ public class UserServiceImpl implements UserService {
     public int changePwd(User user) {
         return userMapper.changePwd(user);
     }
+
+    @Override
+    public int changeLevel(String phone, int level) {
+        return userMapper.changeLevel(phone,level);
+    }
 }

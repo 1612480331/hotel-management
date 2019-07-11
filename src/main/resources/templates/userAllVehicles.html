@@ -53,41 +53,41 @@
         <!-- end sidebar menu -->
         <!-- start page content -->
         <div class="page-content-wrapper">
-            <div class="page-content">
-                <div class="page-bar">
-                    <div class="page-title-breadcrumb">
-                        <div class=" pull-left">
-                            <div class="page-title">All Vehicles</div>
-                        </div>
-                        <ol class="breadcrumb page-breadcrumb pull-right">
-                            <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="user.html">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
-                            </li>
-                            <li><a class="parent-item" href="">Transportation</a>&nbsp;<i class="fa fa-angle-right"></i>
-                            </li>
-                            <li class="active">All Vehicles</li>
-                        </ol>
+        <div class="page-content">
+            <div class="page-bar">
+                <div class="page-title-breadcrumb">
+                    <div class=" pull-left">
+                        <div class="page-title">All Rooms</div>
                     </div>
+                    <ol class="breadcrumb page-breadcrumb pull-right">
+                        <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="user.html">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
+                        </li>
+                        <li><a class="parent-item" href="">Transportation</a>&nbsp;<i class="fa fa-angle-right"></i>
+                        </li>
+                        <li class="active">All Rooms</li>
+                    </ol>
                 </div>
-                <div class="row">
-                    <div class="col-lg-4 col-md-6 col-12 col-sm-6" v-for="(item,index) in roomList" :key="index">
-                        <div class="blogThumb">
-                            <div class="thumb-center"><img class="img-responsive" alt="user" :src="item.photo"></div>
-                            <div class="vehicle-name cyan-bgcolor">
-                                <div class="user-name">{{item.typeName}}</div>
-                            </div>
-                            <div class="vehicle-box">
-                                <p><strong>单价:</strong> {{item.typePrice}}/天</p>
-                                <p><strong>面积:</strong> {{item.typeArea}}平方米</p>
-                                <p><strong>可住人数:</strong> {{item.numberOfPeople}}人</p>
-                                <p><strong>床位:</strong> {{item.numberOfBed}}</p>
-                                <p><strong>是否可取消:</strong> {{item.cancel | cancel}}</p>
-                                <p><strong>早餐:</strong> {{item.breakfast | breakfast}}</p>
-                            </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-12 col-sm-6" v-for="(item,index) in roomList" :key="index">
+                    <div class="blogThumb">
+                        <div class="thumb-center"><img class="img-responsive" alt="user" :src="item.photo"></div>
+                        <div class="vehicle-name cyan-bgcolor">
+                            <div class="user-name" v-text="item.typeName"><!--{{item.typeName}}--></div>
+                        </div>
+                        <div class="vehicle-box">
+                            <p><strong>单价:</strong> {{item.typePrice}}/天</p>
+                            <p><strong>面积:</strong> {{item.typeArea}}平方米</p>
+                            <p><strong>可住人数:</strong> {{item.numberOfPeople}}人</p>
+                            <p><strong>床位:</strong> {{item.numberOfBed}}</p>
+                            <p><strong>是否可取消:</strong> {{item.cancel | cancel}}</p>
+                            <p><strong>早餐:</strong> {{item.breakfast | breakfast}}</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
         <!-- end page content -->
         <!-- start chat sidebar -->
         <div th:replace="user::chatSideBar"></div>
