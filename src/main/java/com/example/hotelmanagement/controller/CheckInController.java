@@ -36,6 +36,19 @@ public class CheckInController {
     @Qualifier("User")
     private UserService userService;
 
+    @RequestMapping("/allMoney")
+    public Map<String,Object> allMoney(){
+        Map map=new HashMap();
+        int state=0;
+        int i=checkInService.allMoney();
+        if(i==0){
+            state=1;
+        }
+        map.put("state",state);
+        map.put("totalMoney",i);
+        return map;
+    }
+
     @RequestMapping("/queryAll")
     public Map<String,Object> queryAll(){
         Map map=new HashMap();

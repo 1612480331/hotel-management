@@ -36,5 +36,6 @@ public class staffServiceImpl implements staffService {
 
     public int editSubmit(Waiter wa1){return staffmapper.editSubmit(wa1);}
 
+    public int queryIdNumber(Waiter wa1){ return  staffmapper.queryIdNumber(wa1);}
 
 }

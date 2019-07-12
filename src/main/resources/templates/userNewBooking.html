@@ -242,15 +242,23 @@
 
             },
             add(){
-              console.log(this.type)
-                console.log(this.arrive)
                 var type=this.type
                 var number=this.number
                 var arrive=new Date(this.arrive)
+                var depart=new Date(this.depart)
+                var today=new Date()
+                if(parseInt(arrive.getTime()-today.getTime())<0||parseInt(depart.getTime()-today.getTime())<0){
+                    this.$message.error("日期选择错误，请重新选择")
+                    return;
+                }
+                if(parseInt(depart.getTime()-arrive.getTime())<=0){
+                    this.$message.error("结束日期必须大于开始日期")
+                    return;
+                }
                 arrive=arrive.getFullYear()+"-"+arrive.getMonth()+"-"+arrive.getDate()
                 arrive=this.arrive
                 console.log(arrive)
-                var depart=new Date(this.depart)
+
                 depart=depart.getFullYear()+"-"+depart.getMonth()+"-"+depart.getDate()
                 depart=this.depart
                 console.log(depart)

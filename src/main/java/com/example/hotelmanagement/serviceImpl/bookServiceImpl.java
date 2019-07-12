@@ -17,6 +17,16 @@ public class bookServiceImpl implements bookService {
     private bookMapper bookMapper;
 
     @Override
+    public int successBooking() {
+        return bookMapper.successBooking();
+    }
+
+    @Override
+    public int newBooking() {
+        return bookMapper.newBooking();
+    }
+
+    @Override
     public remainRoom queryRemainByDate(Date date, String typeName) {
         System.out.println(typeName+date);
         remainRoom  r=bookMapper.queryRemainByDate(date,typeName);

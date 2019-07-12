@@ -17,6 +17,11 @@ public class checkInServiceImpl implements checkInService {
     private checkInMapper checkInMapper;
 
     @Override
+    public int allMoney() {
+        return checkInMapper.allMoney();
+    }
+
+    @Override
     public List<room> getRoom(String roomType, int roomNumber) {
         return checkInMapper.getRoom(roomType,roomNumber);
     }

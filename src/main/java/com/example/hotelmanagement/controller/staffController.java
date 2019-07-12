@@ -77,15 +77,17 @@ public class staffController {
     public ModelAndView EditSubmit(@ModelAttribute Waiter waiter){
         ModelAndView mav=new ModelAndView();
         //int i=staffservice.queryStaff(waiter);
-        int i=staffservice.editSubmit(waiter);
-        if (i>0){
+        //System.out.println(waiter);
+        int i=staffservice.queryIdNumber(waiter);
+        if (i==0){
             mav.addObject("state","edit");
+            staffservice.editSubmit(waiter);
         }else{
             mav.addObject("state","editfailed");
         }
         List<Waiter> list=staffservice.viewAllStaff();
         mav.addObject("list",list);
-       // mav.addObject("state","edit");
+        // mav.addObject("state","edit");
         mav.setViewName("all_staffs");
         return mav;
     }

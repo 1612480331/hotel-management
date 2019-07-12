@@ -37,4 +37,9 @@ public class roomServiceImpl implements roomService {
     public List<String> queryAllId() {
         return roomMapper.queryAllId();
     }
+
+    @Override
+    public int remainNum() {
+        return roomMapper.remainNum();
+    }
 }

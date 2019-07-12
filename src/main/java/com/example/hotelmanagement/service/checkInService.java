@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.List;
 
 public interface checkInService {
+
+    public int allMoney();
     //查询到对应数量所需要的房间号
     public List<room> getRoom(String roomType, int roomNumber);
     public List<checkIn> getCheckIn(String roomId);

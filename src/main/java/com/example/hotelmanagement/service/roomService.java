@@ -10,4 +10,5 @@ public interface roomService {
     public int addRoom(String roomId, int roomType);
     public int addRoomNumber(int typeId);
     public List<String> queryAllId();
+    public  int remainNum();
 }

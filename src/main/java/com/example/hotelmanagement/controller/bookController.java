@@ -1,9 +1,11 @@
 package com.example.hotelmanagement.controller;
 
+import com.example.hotelmanagement.entity.User;
 import com.example.hotelmanagement.entity.book;
 import com.example.hotelmanagement.entity.remainRoom;
 
 import com.example.hotelmanagement.service.RoomTypeService;
+import com.example.hotelmanagement.service.UserService;
 import com.example.hotelmanagement.service.bookService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +35,30 @@ public class bookController {
     @Autowired
     @Qualifier("RoomType")
     private RoomTypeService roomTypeService;
+    @Autowired
+    @Qualifier("User")
+    private UserService userService;
 
 
+    @RequestMapping("/successBooking")
+    public Map<String,Object> successBooking(){
+        Map map=new HashMap();
+        int state=0;
+        int i=bookService.successBooking();
+        map.put("state",state);
+        map.put("successBooking",i);
+        return map;
+    }
+
+    @RequestMapping("/newBooking")
+    public Map<String,Object> newBookign(){
+        Map map=new HashMap();
+        int state=0;
+        int i=bookService.newBooking();
+        map.put("state",state);
+        map.put("newBooking",i);
+        return map;
+    }
     @RequestMapping("/queryRemainByDate")
     public remainRoom queryRemainByDate(Date date1,String typeName) throws ParseException {
         remainRoom r = bookService.queryRemainByDate(date1,typeName);
@@ -164,12 +188,12 @@ public class bookController {
             state=2;//无余量
         }else {
             String phone = session.getAttribute("phone").toString();
+            User user= userService.queryByPhone(phone);
             book.setPhone(phone);
             //获取入住天数
             int days = getDistanceOfDate(book.getArrive(), book.getDepart());
             System.out.println(days);
             //根据房型获取单价
-//        roomTypeController rtc = new roomTypeController();
             float unitPrice = roomTypeService.queryPriceByType(book.getRoomType());
             //根据订单计算总价
             float orderPrice = unitPrice * days * book.getRoomNumber();
@@ -183,6 +207,11 @@ public class bookController {
                 payState = (float) (orderPrice * 0.9);
             else                //30天以上 8折
                 payState = (float) (orderPrice * 0.8);
+            if(user.getLevel()==2){
+                payState=(float) (payState*0.9);
+            }else if(user.getLevel()==3){
+                payState=(float)(payState*0.8);
+            }
             book.setPayState(payState);
             //将信息写入预定表
             int i = bookService.addOrder(book);
@@ -208,7 +237,9 @@ public class bookController {
         long arrive1 = arrive.getTime();
         System.out.println(arrive1);
         long depart1 = depart.getTime();
-        return (int)(depart1 - arrive1) / (1000 * 60 * 60 * 24);
+        int i=(int)((depart1 - arrive1) / (1000 * 60 * 60 * 24));
+        System.out.println(arrive1+"----"+depart1+"---"+i);
+        return i;
     }
 
 

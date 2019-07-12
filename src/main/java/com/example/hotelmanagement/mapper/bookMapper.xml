@@ -4,6 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.hotelmanagement.mapper.bookMapper">
+    <select id="newBooking" resultType="int">
+        select count(*) as num from book where response='待处理';
+    </select>
+    <select id="successBooking" resultType="int">
+        select count(*) as num from book where response='预定成功';
+    </select>
     <select id="queryRemainByDate" resultType="com.example.hotelmanagement.entity.remainRoom">
         select v_roomType_number.typeName,v_roomType_number.typeNumber-ifnull(sum(v_orderstate.roomNumber),0) as typeNumber
             from v_roomType_number,v_orderstate

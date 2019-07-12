@@ -5,6 +5,9 @@
 
 <mapper namespace="com.example.hotelmanagement.mapper.roomMapper">
 
+    <select id="remainNum" resultType="int">
+        select count(*) as num from room where state=0;
+    </select>
     <select id="queryAllRoom" resultType="com.example.hotelmanagement.entity.room">
         select * from room;
     </select>

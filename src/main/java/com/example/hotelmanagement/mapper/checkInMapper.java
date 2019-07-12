@@ -16,4 +16,5 @@ public interface checkInMapper {
     public int deleteBook(int bookId);
     public int deleteCheckIn(String bookId);
     public List<checkIn> queryAll();
+    public int allMoney();
 }

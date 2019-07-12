@@ -30,4 +30,7 @@
         update waiter set account=#{account},password=#{password},name=#{name},idNumber=#{idNumber},phone=#{phone},address=#{address} where account=#{account};
     </update>
 
+    <select id="queryIdNumber" parameterType="com.example.hotelmanagement.entity.Waiter" resultType="int">
+        select count(*)from waiter where idNumber=#{idNumber};
+    </select>
 </mapper>

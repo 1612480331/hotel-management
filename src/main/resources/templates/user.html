@@ -1202,7 +1202,7 @@
                                             </li>
                                             <li>
                                                 <div class="info-key">开业装修时间：</div>
-                                                <div class="info-value">2010年开业 2010年装修</div>
+                                                <div class="info-value">2020年开业 2019年装修</div>
                                             </li>
                                             <li>
                                                 <div class="info-key">入离店时间：</div>
@@ -1241,12 +1241,11 @@
                                                 <div class="info-key">酒店简介：</div>
                                                 <div itemprop="description" class="info-value">
                                                     <div class="brief brief-fold" style="">
-                                                        上海和平饭店地处外滩与南京东路交叉口的繁华地段，毗邻虹桥国际机场、浦东国际机场。饭店闪耀着时尚与经典的魅力光泽，既传承了历史，又焕发了时髦的当代都市新风尚。
-                                                        饭店拥有各具特色的客房、奢华套房、充满装饰艺术感的家具与现代化设施。费尔蒙金尊楼层、金尊酒廊让你尊享贵宾礼遇，中西早餐以及下午茶点心任你选择。
-                                                        世界著名的餐厅以及酒吧，以及龙凤厅精心烹饪的上海本帮佳肴，都让你的感官得到无与伦比的享受。华懋阁散发着优雅气息，上海具有历史气息的爵士乐酒吧里，世界著名的老年爵士乐队每晚都在这里演奏。在维克多休闲咖啡店可以边品尝各国美食以及精美甜点，边惬意地欣赏南京路的街景。在茉莉酒廊品味新鲜烘培的美味下午茶，或在周六品茶的同时加入上海滩最优雅的社交活动——茶舞。
-                                                        在自然采光室内游泳池使得你身心放松运动，或在平和宁静的蔚柳溪水疗养生，设备完善的商务中心和旅行咨询台满足你的多方面需求，酒店为你提供停车服务。
-                                                        酒店提示：
-                                                        根据《上海市公共场所控制吸烟条例》，从2017年3月1日起，酒店不能安排吸烟房，并禁止在酒店室内区域吸烟。
+                                                        上海牛气冲天大酒店地处军工路与控江路交叉口的繁华地段，毗邻黄浦江。酒店闪耀着时尚与经典的魅力光泽，既传承了历史，又焕发了时髦的当代都市新风尚。
+                                                        酒店拥有各具特色的客房、奢华套房、充满装饰艺术感的家具与现代化设施。单人套间让你尊享贵宾礼遇，中西早餐以及下午茶点心任你选择。
+                                                        世界著名的酒店，让你的感官得到无与伦比的享受。设备完善的商务中心和旅行咨询台满足你的多方面需求，酒店为你提供停车服务。<br>
+                                                        <span style="color:red;">酒店提示：</span>
+                                                        根据《上海市公共场所控制吸烟条例》，从2019年7月12日起，酒店不能安排吸烟房，并禁止在酒店室内区域吸烟。
                                                     </div>
                                                 </div>
                                             </li>
@@ -1256,12 +1255,13 @@
                                 <div><h2 id="traffic-info"><a class="sub-title active">位置交通</a></h2>
                                     <ul class="traffic-info">
                                         <li>
-                                            <div class="info-key">地铁站：</div>
-                                            <div class="info-value"><p>南京东路地铁站 570m</p>
-                                                <p>天潼路地铁站 855m</p>
-                                                <p>豫园地铁站 1.2km</p></div>
+                                            <div class="info-key">地铁站：
+                                            </div>
+                                            <div class="info-value">
+                                                <p>爱国路地铁站   1.2km</p>
+                                            </div>
                                         </li>
-                                        <li>
+                                        <!--<li>
                                             <div class="info-key">火车站/机场：</div>
                                             <div class="info-value"><p>上海站
                                                 3.5km</p>
@@ -1275,12 +1275,13 @@
                                                     14.5km</p>
                                                 <p>浦东国际机场
                                                     31.5km</p></div>
-                                        </li>
+                                        </li>-->
                                         <li>
                                             <div class="info-key">热门景点：</div>
-                                            <div class="info-value"><p>和平饭店 40m</p>
-                                                <p>恒基名人购物中心 495m</p>
-                                                <p>宏伊广场 515m</p></div>
+                                            <div class="info-value">
+                                                <p>湛恩纪念图书馆   <521m</p>
+                                                <p>毛像广场   <520m</p>
+                                                <p>望江台   <521m</p></div>
                                         </li>
                                     </ul>
                                 </div>
@@ -1336,7 +1337,8 @@
                                     <el-input
                                             type="textarea"
                                             autosize
-                                            placeholder="请输入评价内容"
+                                            maxlength="100"
+                                            placeholder="评价内容少于100字"
                                             v-model="comment">
                                     </el-input>
                                     </div>
@@ -1776,6 +1778,9 @@
 <!-- end js include path -->
 </body>
 <style>
+    .value-item{
+        margin-right: 3px;
+    }
     .prog-avatar img{
         width: 100%;
         height:100%;
@@ -1865,12 +1870,17 @@
         data:{
             user:{},
             commentList:[],
-            star: null,
+            star: 0,
             comment: '',
             isActive:false
         },
         methods:{
             comments(){
+                if(this.comment==""){
+                    this.$message.error("评价不能为空")
+                    return;
+                }
+
                 var obj={"content":this.comment,"star":parseInt(this.star),"phone":this.user.phone}
                 var url="/comment/addComment"
                 axios.get(url,{params:obj}).then(res=>{

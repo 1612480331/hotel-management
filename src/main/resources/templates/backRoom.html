@@ -58,14 +58,14 @@
                     <div class="page-bar">
                         <div class="page-title-breadcrumb">
                             <div class=" pull-left">
-                                <div class="page-title">All Bookings</div>
+                                <div class="page-title">Back Room</div>
                             </div>
                             <ol class="breadcrumb page-breadcrumb pull-right">
                                 <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="index.html">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
                                 </li>
                                 <li><a class="parent-item" href="">Booking</a>&nbsp;<i class="fa fa-angle-right"></i>
                                 </li>
-                                <li class="active">All Bookings</li>
+                                <li class="active">Back Room</li>
                             </ol>
                         </div>
                     </div>
@@ -147,8 +147,8 @@
                                                     <span class="label label-sm label-success">{{item.roomId}}</span>
                                                 </td>
                                                 <td class="center">
-                                                    <button type="button" @click="continueRoom(item.roomId)" class="btn blue-bgcolor btn-outline btn-circle m-b-10">续房</button>
-                                                    <button type="button" @click="backRoom(item.roomId,item.phone)" class="btn red btn-outline btn-circle m-b-10">退房</button>
+                                                   <!-- <button type="button" @click="continueRoom(item.roomId)" class="btn blue-bgcolor btn-outline btn-circle m-b-10">续房</button>
+                                                    --><button type="button" @click="backRoom(item.roomId,item.phone)" class="btn red btn-outline btn-circle m-b-10">退房</button>
                                                 </td>
                                             </tr>
                                             </tbody>

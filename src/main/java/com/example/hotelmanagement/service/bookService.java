@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.List;
 
 public interface bookService {
+    public int successBooking();
+    public int newBooking();
     public remainRoom queryRemainByDate(Date date, String typeName);
     public remainRoom queryRemainByName(String typeName);
 

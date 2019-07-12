@@ -98,6 +98,7 @@
 				console.log(phone.length)
 				if(radios=="用户"&&phone.length!=11){
 					this.$message.error("手机号必须为11位")
+					return;
 				}
 				if (phone == "" || phone == null || password == "" || password == null) {
 					this.$message.error('账号和密码不能为空')

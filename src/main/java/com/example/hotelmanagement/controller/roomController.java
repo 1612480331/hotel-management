@@ -21,6 +21,18 @@ public class roomController {
     @Autowired
     @Qualifier("room")
     private roomService roomService;
+
+
+    @RequestMapping("/remainNum")
+    public Map<String,Object> remainNum(){
+        Map map=new HashMap();
+        int state=0;
+        int i=roomService.remainNum();
+        map.put("state",state);
+        map.put("remainNum",i);
+        return map;
+    }
+
     /**
      * 查询所有房间
      * @return

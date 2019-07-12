@@ -8,6 +8,9 @@ import java.util.Date;
 import java.util.List;
 
 public interface bookMapper {
+    public int newBooking();
+    public int successBooking();
+
     //查询所有房间的余量当前日期
     public remainRoom queryRemainByDate(Date date, String typeName);
     public remainRoom queryRemainByName(String typeName);

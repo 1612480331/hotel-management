@@ -952,14 +952,14 @@
 					          <div class="info-box bg-blue">
 					            <span class="info-box-icon push-bottom"><i class="material-icons">style</i></span>
 					            <div class="info-box-content">
-					              <span class="info-box-text">Orders</span>
-					              <span class="info-box-number">450</span>
-					              <div class="progress">
+					              <span class="info-box-text">Success</span>
+					              <span class="info-box-number" v-text="successBooking"></span>
+					             <!-- <div class="progress">
 					                <div class="progress-bar width-60"></div>
 					              </div>
 					              <span class="progress-description">
 					                    60% Increase in 28 Days
-					                  </span>
+					                  </span>-->
 					            </div>
 					            <!-- /.info-box-content -->
 					          </div>
@@ -971,13 +971,13 @@
 					            <span class="info-box-icon push-bottom"><i class="material-icons">card_travel</i></span>
 					            <div class="info-box-content">
 					              <span class="info-box-text">New Booking</span>
-					              <span class="info-box-number">155</span>
-					              <div class="progress">
+					              <span class="info-box-number" v-text="newBooking"></span>
+					              <!--<div class="progress">
 					                <div class="progress-bar width-40"></div>
 					              </div>
 					              <span class="progress-description">
 					                    40% Increase in 28 Days
-					                  </span>
+					                  </span>-->
 					            </div>
 					            <!-- /.info-box-content -->
 					          </div>
@@ -986,16 +986,17 @@
 					        <!-- /.col -->
 					        <div class="col-xl-3 col-md-6 col-12">
 					          <div class="info-box bg-purple">
-					            <span class="info-box-icon push-bottom"><i class="material-icons">phone_in_talk</i></span>
+					            <span class="info-box-icon push-bottom"><i class="material-icons">domain</i></span>
 					            <div class="info-box-content">
-					              <span class="info-box-text">Inquiry</span>
-					              <span class="info-box-number">52</span>
-					              <div class="progress">
+					              <span class="info-box-text">Remain Num</span>
+					              <span class="info-box-number" v-text="remainNum"></span>
+
+					             <!-- <div class="progress">
 					                <div class="progress-bar width-80"></div>
 					              </div>
 					              <span class="progress-description">
 					                    80% Increase in 28 Days
-					                  </span>
+					                  </span>-->
 					            </div>
 					            <!-- /.info-box-content -->
 					          </div>
@@ -1007,13 +1008,13 @@
 					            <span class="info-box-icon push-bottom"><i class="material-icons">monetization_on</i></span>
 					            <div class="info-box-content">
 					              <span class="info-box-text">Total Earning</span>
-					              <span class="info-box-number">13,921</span><span>$</span>
-					              <div class="progress">
+					              <span class="info-box-number" v-text="totalMoney"></span><span>￥</span>
+					              <!--<div class="progress">
 					                <div class="progress-bar width-60"></div>
 					              </div>
 					              <span class="progress-description">
 					                    60% Increase in 28 Days
-					                  </span>
+					                  </span>-->
 					            </div>
 					            <!-- /.info-box-content -->
 					          </div>
@@ -1022,8 +1023,76 @@
 					        <!-- /.col -->
 					      </div>
 						</div>
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-12">
+							<div class="card-box ">
+								<div class="card-head">
+									<header>顾客评分</header>
+									<div class="tools">
+										<a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+										<a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+										<a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+									</div>
+								</div>
+								<div class="card-body ">
+									<div class="row">
+										<ul class="docListWindow small-slimscroll-style">
+											<li v-for="(item,index) in commentList" :key="index">
+												<div class="row">
+													<div class="col-lg-8 p-t-20">
+														<div class="prog-avatar">
+															<img src="imgs/头像.jpg" alt="hhh" width="40" height="40">
+														</div>
+														<div class="details">
+															<div class="title">
+																<span> <a style="font-size: 16px;color: blue;">{{item.phone}}</a><span style="margin-left: 10px;font-size: 12px;color: grey;">{{item.time | timeTransform}}</span></span>
+																<p class="rating-text">{{item.content}}</p>
+															</div>
+														</div>
+													</div>
+													<div class="col-lg-4 p-t-20 rating-style">
+														<div>
+															<el-rate
+																	v-model="item.star"
+																	disabled
+																	text-color="#ff9900">
+															</el-rate>
+														</div>
+													</div>
+												</div>
+											</li>
+										</ul>
+									</div>
+									<!--<div class="row">
+
+										<div class="col-lg-8 p-t-20">
+											<div>
+												<el-input
+														type="textarea"
+														autosize
+														placeholder="请输入评价内容"
+														v-model="comment">
+												</el-input>
+											</div>
+										</div>
+										<div class="col-lg-4 p-t-20">
+											<div>
+												<el-rate v-model="star"></el-rate>
+											</div>
+										</div>
+
+									</div>
+									<div class="row">
+										<div class="full-width text-center p-t-10" >
+											<a href="#" @click.prevent="comments" class="btn purple btn-outline btn-circle margin-0">评价</a>
+										</div>
+									</div>-->
+								</div>
+							</div>
+						</div>
+					</div>
 					<!-- end widget -->
-                     <!-- chart start -->
+                  <!--   &lt;!&ndash; chart start &ndash;&gt;
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card card-box">
@@ -1061,7 +1130,7 @@
                             </div>
                         </div>
                     </div>
-                     <!-- Chart end -->
+                     &lt;!&ndash; Chart end &ndash;&gt;
                     <div class="row">
                         <div class="col-md-4 col-sm-12 col-12">
                             <div class="card bg-info">
@@ -1190,7 +1259,7 @@
                             </div>
                         </div>
                     </div>
-                     <!-- start Payment Details -->
+                     &lt;!&ndash; start Payment Details &ndash;&gt;
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
                             <div class="card  card-box">
@@ -1379,7 +1448,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- end Payment Details -->
+                    &lt;!&ndash; end Payment Details &ndash;&gt;
                     <div class="row">
 							<div class="col-lg-8 col-md-12 col-sm-12 col-12">
                                    <div class="card-box ">
@@ -1539,11 +1608,11 @@
                                  <div class="card-head">
                                      <header>Todo List</header>
                                      <button id = "panel-button" 
-				                           class = "mdl-button mdl-js-button mdl-button--icon pull-right" 
+				                           class = "mdl-button mdl-js-button mdl-button&#45;&#45;icon pull-right"
 				                           data-upgraded = ",MaterialButton">
 				                           <i class = "material-icons">more_vert</i>
 				                        </button>
-				                        <ul class = "mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+				                        <ul class = "mdl-menu mdl-menu&#45;&#45;bottom-right mdl-js-menu mdl-js-ripple-effect"
 				                           data-mdl-for = "panel-button">
 				                           <li class = "mdl-menu__item"><i class="material-icons">assistant_photo</i>Action</li>
 				                           <li class = "mdl-menu__item"><i class="material-icons">print</i>Another action</li>
@@ -1609,7 +1678,7 @@
                                  </div>
                              </div>
                          </div>
-						</div>
+						</div>-->
                 </div>
             </div>
             <!-- end page content -->
@@ -2038,9 +2107,23 @@
 		data() {
 			return {
 				waiter: {},
+				totalMoney:"",
+				newBooking:"",
+				successBooking:"",
+				remainNum:"",
+				commentList:[]
 			}
 		},
 		methods: {
+			queryAllComment(){
+				var url="/comment/queryAllComment"
+				axios.post(url).then(res=>{
+					if(res.data.state==0){
+						console.log(res.data.commentList)
+						this.commentList=res.data.commentList
+					}
+				})
+			},
 			queryAccount() {
 				console.log("开始")
 				let url = "/waiter/queryByAccount"
@@ -2051,10 +2134,47 @@
 						this.waiter = res.data.waiter
 					}
 				})
+			},
+			queryTotalMoney(){
+				var url="/check/allMoney"
+				axios.get(url).then(res=>{
+					if(res.data.state==0){
+						this.totalMoney=res.data.totalMoney
+					}
+				})
+			},
+			queryNewBooking(){
+				var url="/book/newBooking"
+				axios.get(url).then(res=>{
+					if(res.data.state==0){
+						this.newBooking=res.data.newBooking
+					}
+				})
+			},
+			querySuccessBooking(){
+				var url="/book/successBooking"
+				axios.get(url).then(res=>{
+					if(res.data.state==0){
+						this.successBooking=res.data.successBooking
+					}
+				})
+			},
+			queryRemainNum(){
+				var url="/room/remainNum"
+				axios.get(url).then(res=>{
+					if(res.data.state==0){
+						this.remainNum=res.data.remainNum
+					}
+				})
 			}
 		},
 		created() {
 			this.queryAccount()
+			this.queryTotalMoney()
+			this.queryNewBooking()
+			this.querySuccessBooking()
+			this.queryRemainNum()
+			this.queryAllComment()
 		}
 	})
 </script>

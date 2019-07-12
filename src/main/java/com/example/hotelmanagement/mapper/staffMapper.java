@@ -14,4 +14,5 @@ public interface staffMapper {
     int delete(String account);
     Waiter editStaff(String account);
     int editSubmit(Waiter wa1);
+    int queryIdNumber(Waiter wa1);
 }
